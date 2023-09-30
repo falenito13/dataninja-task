@@ -115,5 +115,6 @@ return [
     */
 
     'password_timeout' => 10800,
-
+    'access_token_length' => env('ACCESS_TOKEN_LENGTH', 128),
+    'login_expiration_in_days' => env('LOGIN_EXPIRATION_IN_DAYS',30)
 ];

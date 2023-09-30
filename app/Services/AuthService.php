@@ -77,26 +77,26 @@ class AuthService
                 ];
                 $userToken = UserToken::create([
                     'user_id' => $user->id,
-                    'access_token' => Str::random(64),
-                    'expires_at' => now()->addDays(30)
+                    'access_token' => Str::random(config('auth.access_token_length')),
+                    'expires_at' => now()->addDays(config('auth.login_expiration_in_days'))
                 ]);
                 $data['access_token'] = $userToken->access_token;
                 return [
                     'success' => true,
-                    'code' => 200,
+                    'code' => Response::HTTP_OK,
                     'data' => $data
                 ];
             } else {
                 return [
                     'success' => false,
-                    'code' => 401,
+                    'code' => Response::HTTP_UNAUTHORIZED,
                     'data' => __('Incorrect email or password')
                 ];
             }
         }
         return [
             'success' => false,
-            'code' => 401,
+            'code' => Response::HTTP_UNAUTHORIZED,
             'data' => __('Incorrect email or password')
         ];
     }
